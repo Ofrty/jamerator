@@ -11,6 +11,10 @@
  *********************************************/
 
 /**needed functions**/
+/*getRandom() returns the contents of a randomly-selected index in the array passed in arg
+* Assumption: arg1 'arr' is an array. Just returns nothing otherwise.
+* */
+
 function getRandom(arr)
 {
     return arr[Math.floor((Math.random() * ((arr.length-1) + 1)))]
@@ -106,7 +110,7 @@ var scaleOps =
         ,"Root 4 Diminished (child variants)"
     ];
 
-//TODO: add a +12 bool for each scale
+//TODO: add a +12 bool for each scale; or maybe, just disregard this and make it an assumption of its usage
 
 /**assign vars**/
 var rootChord = getRandom(noteOps) + ' ' + getRandom(flavorOps);
