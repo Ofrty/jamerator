@@ -8,70 +8,6 @@
  *                  See Git change diffs and commit comments for an update log.
  *********************************************/
 
-/**needed functions**/
-
-/*getRandomIdx() returns a randomly-selected index in an array passed in ar
-* Assumption: arg1 'arr' is an array. Returns nothing otherwise.
-* */
-function getRandomIdx(arr)
-{
-    return (Math.floor((Math.random() * ((arr.length - 1) + 1))));
-}
-
-/*getRandomVal() returns the contents of a randomly-selected index in the array passed in arg
-* Assumption: arg1 'arr' is an array. Just returns nothing otherwise.
-* */
-function getRandomVal(arr)
-{
-    return arr[getRandomIdx(arr)];
-}
-
-/*writeScaleTab() sets the contents of a scale tab block to contain the elements of the scale it is passed.
-arg1=scale order n, arg2=scale object
- */
-function writeScaleTab(ordinal, scale)
-{
-    //set the scale header text to the scale name
-    setScaleHeader(ordinal, scale.name);
-
-    //set the notes of the tab
-    //loop through each string
-    for (var i = 0; i < 6; i++)
-    {
-        //for each note on that string for the scale
-        for (var j = 0; j < scale.frets[i].length; j++)
-        {
-            //compensate for the randomly-selected root note and set the value
-            var adjustedVal = ((scale.frets[i][j] + (((12 + rootNoteIdx) - scale.root) % 12)) + 1);
-            setFret(ordinal, (i+1), (j+1), adjustedVal);
-        }
-    }
-}
-
-/*setScaleHeader() sets the header elem for a scale to the name of the scale.
-* arg1=scale n, arg2=scale name
- */
-function setScaleHeader(ordinal, name)
-{
-    //find the appropriate element by id
-    var idStr = "scaleTabHeader" + ordinal;
-    var elem = document.getElementById(idStr);
-
-    //edit the text
-    elem.textContent = name;
-}
-
-/*setFret() sets the contents of a fret div element to the value in val.
-* arg1=scale order n, arg2=string n, arg3=note n, arg4=val to be inserted*/
-function setFret(ordinal, s, n, val)
-{
-    //find the appropriate elem by id
-    var idStr = ordinal + "s" + s + "n" + n;
-    var elem = document.getElementById(idStr);
-
-    //edit the text
-    elem.textContent = val;
-}
 
 //get elements
 var elRootChord = document.getElementById("rootChord");
@@ -179,7 +115,10 @@ var prog = getRandomVal(progOps);
 var style = getRandomVal(styleOps);
 var feel = getRandomVal(feelOps);
 var tempo = getRandomVal(tempoOps);
-var youTube = "https://www.youtube.com/results?search_query=" + rootChord + '+' + prog + '+' + style + '+' + "backing";
+
+//youTube link needs to be trimmed of spaces and to have '/' chars converted to
+var youTube = ("https://www.youtube.com/results?search_query=" + rootChord + '+' + prog + '+' + style + '+' + "backing").replace(32, 0).replace(47, 0);
+console.log(youTube); //db
 
 //scales to use are generated a bit more complexly.
 var scales = [];
@@ -191,6 +130,8 @@ var c = 0;
 //create as many scales as specified. ensure no duplicates
 while (c < scaleCount)
 {
+    //console.log("****Picking Scale: " + c);//db
+
     isRepeat = false;
 
     //get a random scale
@@ -201,8 +142,12 @@ while (c < scaleCount)
     {
         //alert(tempScaleOp.name + " vs " + scales[j].name); //debug
 
-        if ((tempScaleOp.name) === scales[j.name])
+        //console.log("**Comparing " + tempScaleOp.name + " against " + scales[j].name);
+
+        if ((tempScaleOp.name) === scales[j].name)
         {
+            //console.log("**Detected to be a repeat, ignoring");//db
+
             isRepeat = true;
         }
     }
@@ -210,6 +155,8 @@ while (c < scaleCount)
     //if not a repeat, go ahead and add to the scales list. else do nada and restart, picking again.
     if (!isRepeat)
     {
+        //console.log("**Detected to not be a repeat, push & increment");//db
+
         scales.push(tempScaleOp);
         c++;
     }
