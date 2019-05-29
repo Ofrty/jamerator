@@ -142,11 +142,11 @@ while (c < scaleCount)
     {
         //alert(tempScaleOp.name + " vs " + scales[j].name); //debug
 
-        //console.log("**Comparing " + tempScaleOp.name + " against " + scales[j].name);
+        //console.log("**Comparing " + tempScaleOp.name + " against " + scales[j].name); //debug
 
         if ((tempScaleOp.name) === scales[j].name)
         {
-            //console.log("**Detected to be a repeat, ignoring");//db
+            //console.log("**Detected to be a repeat, ignoring"); //debug
 
             isRepeat = true;
         }
@@ -171,7 +171,7 @@ elTempo.textContent += tempo;
 elYouTube.href = youTube;
 
 //populate scale frets
-for (var i=0; i < scales.length; i++)
+for (var i = 0; i < scales.length; i++)
 {
     writeScaleTab((i+1), scales[i]);
 }

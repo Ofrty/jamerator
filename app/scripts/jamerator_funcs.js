@@ -8,7 +8,7 @@
 
 function getRandomIdx(arr)
 /*
-    getRandomIdx() returns a randomly-selected index in an array passed in ar
+    getRandomIdx() returns a randomly-selected index in an array passed in arg1
     Assumption: arg1 'arr' is an array. Returns nothing otherwise.
 */
 {
@@ -17,7 +17,7 @@ function getRandomIdx(arr)
 
 function getRandomVal(arr)
 /*
-    Returns the contents of a randomly-selected index in the array passed in arg
+    Returns the contents of a randomly-selected index in the array passed in arg1
     Assumption: arg1 'arr' is an array. Just returns nothing otherwise.
 */
 {
@@ -34,13 +34,13 @@ function writeScaleTab(ordinal, scale)
     setScaleHeader(ordinal, scale.name);
 
     //set the notes of the tab
-    //loop through each string
+    //for every string...
     for (var i = 0; i < 6; i++)
     {
-        //for each note on that string for the scale
+        //...and for each scale's note on the string...
         for (var j = 0; j < scale.frets[i].length; j++)
         {
-            //compensate for the randomly-selected root note and set the value
+            //...set the fret value of the scale, compensate for the randomly-selected root note
             var adjustedVal = ((scale.frets[i][j] + (((12 + rootNoteIdx) - scale.root) % 12)) + 1);
             setFret(ordinal, (i+1), (j+1), adjustedVal);
         }
@@ -64,7 +64,7 @@ function setScaleHeader(ordinal, name)
 function setFret(ordinal, s, n, val)
 /*
     setFret() sets the contents of a fret div element to the value in val.
-    arg1=scale order n, arg2=string n, arg3=note n, arg4=val to be inserted
+    arg1=scale order number, arg2=string number, arg3=note number, arg4=val to be inserted
 */
 {
     //find the appropriate elem by id
